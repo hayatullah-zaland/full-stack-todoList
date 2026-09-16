@@ -1,0 +1,25 @@
+.categories h1 {
+  font-size: 22px;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cat-item {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #334155;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.cat-item:hover {
+  background: #e0f2fe;
+  cursor: pointer;
+}

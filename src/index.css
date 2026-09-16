@@ -3,3 +3,20 @@
   margin: 0;
   box-sizing: border-box;
 }
+:root {
+  --bg-navbar: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent: #4f46e5;
+  --border-color: #e2e8f0;
+  --toggle-bg: #f1f5f9;
+}
+
+[data-theme='dark'] {
+  --bg-navbar: #1e1e2f;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent: #818cf8;
+  --border-color: #334155;
+  --toggle-bg: #2a2a3d;
+}
