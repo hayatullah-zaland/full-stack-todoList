@@ -9,10 +9,8 @@ app.use(express.json())
 
 const todoSchema=new mongoose.Schema({
     title:{
-        type:{
             type:String,
             required:true
-        }
     },
     description:{
         type:String,

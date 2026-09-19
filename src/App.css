@@ -12,6 +12,6 @@
 
 .page {
   flex: 1;
-  padding: 80px;
+  padding:75px;
   background: var(--toggle-bg);
 }

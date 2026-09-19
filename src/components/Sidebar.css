@@ -1,5 +1,5 @@
 .sidebar {
-  width: 180px;
+  width: 200px;
   background: var(--toggle-bg);
   min-height: 100vh;
   padding: 20px;
@@ -10,7 +10,7 @@
 }
 
 .sidebar h2 {
-  color: white;
+  color: white; 
   margin-bottom: 20px;
   font-size: 18px;
 }
@@ -21,6 +21,9 @@
   font-size: 15px;
   padding: 10px;
   border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .sidebar a:hover {

@@ -1,15 +1,33 @@
+import { useEffect, useState } from "react";
 import "./Categories.css";
+import axios from "axios";
 
 const Categories = () => {
+  const [todoes,setTodeos]=useState([])
+
+  useEffect(()=>{
+    axios.get("http://localhost:3000/api/v1/get").then((res)=>{
+      setTodeos(res.data)
+    }).catch((error)=>{
+      console.log(error);
+      
+    })
+  })
+
   return (
     <div className="categories">
-      <h1>Categories</h1>
-      <div className="cat-list">
-        <div className="cat-item">🎨 Design — 10 tasks</div>
-        <div className="cat-item">⚙️ Backend — 15 tasks</div>
-        <div className="cat-item">📄 Docs — 5 tasks</div>
-        <div className="cat-item">🚀 DevOps — 8 tasks</div>
+      {todoes.map(todo=>{
+        <div className="card">
+      <h1>{todoes.title}</h1>
+        <h2>{todoes.description}</h2>
+        <hr />
+        <h4>Description</h4>
+        <hr />
+        <p>Time</p>
       </div>
+      })}
+
+      
     </div>
   );
 };
