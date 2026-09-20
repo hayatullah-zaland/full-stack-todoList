@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { ListTodo, Sun, Moon, CheckCircle2 } from 'lucide-react'
 import './Navbar.css'
+import { TodoContext } from "../context/TodoContexts";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false)
+  const { todoes } = useContext(TodoContext);
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -24,7 +26,7 @@ const Navbar = () => {
       <div className="navbar-right">
         <div className="navbar-stat">
           <CheckCircle2 size={18} />
-          <span></span>
+          <span>{todoes.length}</span>
         </div>
 
         <button

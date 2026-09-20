@@ -1,78 +1,176 @@
-import React, { useEffect, useState } from 'react'
-import "./AddTodoes.css"
-import {Trash2,} from "lucide-react"
-import axios from 'axios'
+import React, { useContext, useEffect, useState } from "react";
+import "./AddTodoes.css";
+import { Trash2, Pencil, Plus, ListTodo } from "lucide-react";
+import axios from "axios";
+import { TodoContext } from "../context/TodoContexts";
 
 const AddTodoes = () => {
-  const [todoes,setTodoes]=useState([])
-  const [todoList,setTodoList]=useState([])
-  const [title,setTitle]=useState("")
-  const [description,setDescription]=useState("")
-  const [error,setError]=useState("")
+  const { todoes, setTodoes } = useContext(TodoContext);
 
-   useEffect(()=>{
-    axios.get("http://localhost:3000/api/v1/get").then((res)=>{
-      setTodoes(res.data)
-    }).catch((error)=>{
-      console.log(error);
-    })
-   },[])
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (id) => {
-    e.preventDefault();
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/v1/todo")
+      .then((res) => {
+        setTodoes(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [setTodoes]);
 
-    if (!title || !description) {
-      setError("Please fill in all fields");
-      return;
-    }
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const todo = {
+  if (!title || !description) {
+    setError("Please fill in all fields");
+    return;
+  }
+
+  try {
+    await axios.post("http://localhost:3000/api/v1/todo", {
       title,
       description,
-    };
+    });
 
-    try {
-      const res = await fetch("http://localhost:3000/api/v1/post/" + todo.id, {
-        method: "POST",
-        body: JSON.stringify(todo),
-      });
-      const data = await res.json();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const res = await axios.get("http://localhost:3000/api/v1/todo");
+
+    setTodoes(res.data);
+
+    setTitle("");
+    setDescription("");
+    setError("");
+  } catch (error) {
+    console.log(error);
+    setError("Something went wrong");
+  }
+};
+
   return (
-    <>
-    <h1>Add Todo</h1>
-    <form action="" onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        placeholder='Title' 
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input 
-        type="text" 
-        placeholder='Description' 
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button>Add</button>
-    </form>
-    <div className="todo-list">
-      {todoes.map((todo,index)=>(
-        <div className="card" key={index}>
-          <h3>{todo.title}</h3>
-          <p>{todo.description}</p>
-          <p>{todo.time}</p>
-          <button>
-            <Trash2 size={20} color="red" />
-          </button>
-        </div>
-      ))}
-    </div>
-    </>
-  )
-}
+    <div className="todo-page">
+      <div className="todo-container">
 
-export default AddTodoes
+        <div className="todo-header">
+          <div className="todo-header-icon">
+            <ListTodo size={22} />
+          </div>
+
+          <div>
+            <h1>Add New Todo</h1>
+            <p>Create tasks and keep your work organized.</p>
+          </div>
+        </div>
+
+        <form className="todo-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="title">Todo Title</label>
+
+            <input
+              id="title"
+              className="todo-input"
+              type="text"
+              placeholder="Enter todo title..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+
+            <textarea
+              id="description"
+              className="todo-textarea"
+              placeholder="Enter todo description..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          {error && <p className="todo-error">{error}</p>}
+
+          <button className="add-button" type="submit">
+            <Plus size={19} />
+            <span>Add Todo</span>
+          </button>
+        </form>
+
+        <div className="todo-section">
+
+          <div className="section-title">
+            <div className="section-heading">
+              <h2>My Todos</h2>
+              <p>Manage your daily tasks</p>
+            </div>
+
+            <span className="task-count">
+              {todoes.length} Tasks
+            </span>
+          </div>
+
+          <div className="todo-list">
+            {todoes.length === 0 ? (
+              <div className="empty-todos">
+                <ListTodo size={38} />
+                <h3>No Todos Yet</h3>
+                <p>Create your first task to get started.</p>
+              </div>
+            ) : (
+              todoes.map((todo) => (
+                <div className="todo-card" key={todo._id}>
+
+                  <div className="todo-card-line"></div>
+
+                  <div className="todo-content">
+
+                    <div className="todo-info">
+                      <h3>{todo.title}</h3>
+
+                      <p>{todo.description}</p>
+
+                      {todo.time && (
+                        <span className="todo-time">
+                          {todo.time}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="todo-actions">
+
+                      <button
+                        className="action-button update-button"
+                        type="button"
+                        onClick={() => handleUpdate(todo._id)}
+                        title="Update Todo"
+                      >
+                        <Pencil size={17} />
+                      </button>
+
+                      <button
+                        className="action-button delete-button"
+                        type="button"
+                        onClick={() => handleDelete(todo._id)}
+                        title="Delete Todo"
+                      >
+                        <Trash2 size={17} />
+                      </button>
+
+                    </div>
+
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default AddTodoes;

@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import Categories from "./components/Categories";
 import Settings from "./components/Settings";
 import AddTodoes from "./components/AddTodoes";
 import "./App.css";
 import "./index.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./pages/Navbar";
 
 const App = () => {
   return (

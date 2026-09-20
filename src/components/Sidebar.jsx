@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import {Home, AdIcon, Package2Icon, Settings} from "lucide-react"
-
+import { useContext } from "react";
 const Sidebar = () => {
   return (
     <div className="sidebar">
