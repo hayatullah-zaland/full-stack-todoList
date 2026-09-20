@@ -15,19 +15,21 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
     console.log("Error connecting to MongoDB",err)
 })
 
-app.post("/api/v1/post/:id",async(req,res)=>{
+app.post("/api/v1/todo",async(req,res)=>{
+    const todo=new Todo({
+        title:req.body.title,
+        description:req.body.description
+    })
     try{
-        const {title,description,time}=req.body
-        const todo=await Todo.create({title,description,time})
-        res.status(201).json(todo)
-        await todo.save()
+        const newTodo=await todo.save()
+        res.status(201).json(newTodo)
     }catch(error){
         res.status(400).json({error:error.message})
     }
 })
 
-app.get("/api/v1/get",async(req,res)=>{
-    const getPost=await Todo.find()
+app.get("/api/v1/todo",async(req,res)=>{
+    const getPost=await Todo.find().sort({title:-1})
     res.send(getPost)
     await getPost.save()
 })
