@@ -13,7 +13,7 @@ const AddTodoes = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/todo")
+      .get("http://localhost:3000/api/v1/todoes")
       .then((res) => {
         setTodoes(res.data);
       })
@@ -31,15 +31,13 @@ const AddTodoes = () => {
   }
 
   try {
-    await axios.post("http://localhost:3000/api/v1/todo", {
+    await axios.post("http://localhost:3000/api/v1/todoes", {
       title,
       description,
     });
 
-    const res = await axios.get("http://localhost:3000/api/v1/todo");
-
+    const res = await axios.get("http://localhost:3000/api/v1/todoes");
     setTodoes(res.data);
-
     setTitle("");
     setDescription("");
     setError("");
@@ -48,6 +46,12 @@ const AddTodoes = () => {
     setError("Something went wrong");
   }
 };
+
+const deleteTodo=(id)=>{
+  axios.delete(`http://localhost:3000/api/v1/todoes/${id}`)
+  const deletetodo=todoes.filter((todo) =>todo._id !==id)
+  setTodoes(deletetodo)
+}
 
   return (
     <div className="todo-page">
@@ -152,7 +156,7 @@ const AddTodoes = () => {
                       <button
                         className="action-button delete-button"
                         type="button"
-                        onClick={() => handleDelete(todo._id)}
+                        onClick={() => deleteTodo(todo._id)}
                         title="Delete Todo"
                       >
                         <Trash2 size={17} />

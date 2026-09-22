@@ -5,15 +5,6 @@ import axios from "axios";
 const Categories = () => {
   const [todoes,setTodeos]=useState([])
 
-  useEffect(()=>{
-    axios.get("http://localhost:3000/api/v1/get").then((res)=>{
-      setTodeos(res.data)
-    }).catch((error)=>{
-      console.log(error);
-      
-    })
-  })
-
   return (
     <div className="categories">
       {todoes.map(todo=>{

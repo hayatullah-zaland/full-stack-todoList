@@ -8,7 +8,7 @@ export const TodoProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/todo")
+      .get("http://localhost:3000/api/v1/todoes")
       .then((res) => {
         setTodoes(res.data);
       })
