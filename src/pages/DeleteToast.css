@@ -1,0 +1,99 @@
+
+.delete-toast {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 350px;
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+  background: #111827;
+  border: 1px solid #263449;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+  z-index: 9999;
+  overflow: hidden;
+  animation: toastSlide 0.4s ease;
+}
+
+.toast-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-content h4 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.toast-content p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.toast-close {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  color: #fff;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: #22c55e;
+  animation: toastProgress 3s linear forwards;
+}
+
+@keyframes toastSlide {
+  from {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastProgress {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .delete-toast {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    width: auto;
+  }
+}
