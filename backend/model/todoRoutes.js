@@ -36,6 +36,16 @@ router.delete("/:id",async(req,res)=>{
       }
 })
 
-
+router.put("/:id", async (req, res) => {
+    try {
+      const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedTodo) {
+        return res.status(404).json({ message: "Todo not found" });
+      }
+      res.json(updatedTodo);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+});
 
 module.exports=router

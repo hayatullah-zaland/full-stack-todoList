@@ -131,6 +131,24 @@
 
 /* Add Button */
 
+/* Checkbox */
+.complete-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #22c55e;
+}
+
+/* Completed todo */
+.todo-card.completed {
+  opacity: 0.6;
+}
+
+.todo-card.completed h3 {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
 .add-button {
   width: 100%;
   height: 40px;
