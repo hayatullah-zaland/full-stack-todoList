@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./Categories.css";
-import axios from "axios";
+import { Folder, Briefcase, User, ShoppingCart, BookOpen } from "lucide-react";
+import { TodoContext } from "../context/TodoContexts";
 
 const Categories = () => {
-  const [todoes,setTodeos]=useState([])
 
+  const {todoes}=useContext(TodoContext)
   return (
     <div className="categories">
-      {todoes.map(todo=>{
-        <div className="card">
-      <h1>{todoes.title}</h1>
-        <h2>{todoes.description}</h2>
-        <hr />
-        <h4>Description</h4>
-        <hr />
-        <p>Time</p>
-      </div>
-      })}
+      <h1>Categories</h1>
+      <p className="sub">Organize your todos by category</p>
 
-      
-    </div>
+        <div>
+          <h2>{todoes.categories}</h2>
+        </div>
+      </div>
   );
 };
 

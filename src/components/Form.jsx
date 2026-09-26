@@ -1,7 +1,8 @@
 import React from "react";
+import "./Form.css"
 import { Plus, Save } from "lucide-react";
 
-const Form = ({ handelSubmit, error, setDescription, setTitle, title, description, isEditing }) => {
+const Form = ({ handelSubmit, error, setDescription, setTitle, title, description, isEditing ,category,setCategory}) => {
   return (
     <form className="todo-form" onSubmit={handelSubmit}>
 
@@ -12,7 +13,7 @@ const Form = ({ handelSubmit, error, setDescription, setTitle, title, descriptio
           className="todo-input"
           type="text"
           placeholder="Enter todo title..."
-          value={title}        // ✅ value اضافه شو
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
@@ -23,9 +24,25 @@ const Form = ({ handelSubmit, error, setDescription, setTitle, title, descriptio
           id="description"
           className="todo-textarea"
           placeholder="Enter todo description..."
-          value={description}  // ✅ value اضافه شو
+          value={description} 
           onChange={(e) => setDescription(e.target.value)}
         />
+      </div>
+
+       <div className="form-group">
+        <label htmlFor="category">Category</label>
+        <select
+          id="category"
+          className="todo-select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">-- Select Category --</option>
+          <option value="Work">💼 Work</option>
+          <option value="Personal">👤 Personal</option>
+          <option value="Shopping">🛒 Shopping</option>
+          <option value="Study">📚 Study</option>
+        </select>
       </div>
 
       {error && <p className="todo-error">{error}</p>}

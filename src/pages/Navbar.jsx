@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect, useContext } from 'react'
-import { ListTodo, Sun, Moon, CheckCircle2 } from 'lucide-react'
+import { ListTodo, Sun, Moon, CheckCircle2, LogIn, UserPlus } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import './Navbar.css'
 import { TodoContext } from "../context/TodoContexts";
 
@@ -36,6 +38,20 @@ const Navbar = () => {
         >
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
+
+        <div className="auth-buttons">
+
+          <Link to="/signin" className="signin-button">
+            <LogIn size={18} />
+            <span>Sign In</span>
+          </Link>
+
+          <Link to="/signup" className="signup-button">
+            <UserPlus size={18} />
+            <span>Sign Up</span>
+          </Link>
+
+        </div>
       </div>
     </nav>
   )

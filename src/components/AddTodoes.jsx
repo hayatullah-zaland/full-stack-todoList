@@ -3,18 +3,17 @@ import "./AddTodoes.css";
 import { Trash2, Pencil, ListTodo } from "lucide-react";
 import axios from "axios";
 import { TodoContext } from "../context/TodoContexts";
-import DeleteToast from "../pages/DeleteToast";
-import CreateToast from "../pages/CreateToast";
 import Form from "./Form";
 import toast from "react-hot-toast";
+import TodoCard from "./TodoCard";
 
 const AddTodoes = () => {
   const { todoes, setTodoes } = useContext(TodoContext);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [editId, setEditId] = useState(null); 
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     axios
@@ -36,6 +35,7 @@ const AddTodoes = () => {
         await axios.put(`http://localhost:3000/api/v1/todoes/${editId}`, {
           title,
           description,
+          category
         });
         setEditId(null);
         toast.success("Todo updated successfully!");
@@ -43,6 +43,7 @@ const AddTodoes = () => {
         await axios.post("http://localhost:3000/api/v1/todoes", {
           title,
           description,
+          category
         });
         toast.success("Todo created successfully!");
       }
@@ -68,6 +69,7 @@ const AddTodoes = () => {
     const found = todoes.find((todo) => todo._id === id);
     setTitle(found.title);
     setDescription(found.description);
+    setCategory(found.category);
     setEditId(id);
     
   };
@@ -104,66 +106,11 @@ const AddTodoes = () => {
           title={title}
           description={description}
           isEditing={editId !== null}
+          category={category}
+          setCategory={setCategory}
+          
         />
-
-        <div className="todo-section">
-          <div className="section-title">
-            <div className="section-heading">
-              <h2>My Todos</h2>
-              <p>Manage your daily tasks</p>
-            </div>
-            <span className="task-count">{todoes.length} Tasks</span>
-          </div>
-
-          <div className="todo-list">
-            {todoes.length === 0 ? (
-              <div className="empty-todos">
-                <ListTodo size={38} />
-                <h3>No Todos Yet</h3>
-                <p>Create your first task to get started.</p>
-              </div>
-            ) : (
-              todoes.map((todo) => (
-                <div className="todo-card" key={todo._id}>
-                  <div className="todo-card-line"></div>
-                  <div className="todo-content">
-                    <div className="todo-info">
-                      <h3>{todo.title}</h3>
-                      <p>{todo.description}</p>
-                      <span className="todo-time">{todo.createdAt}</span>
-                    </div>
-                  <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => completeTodo(todo._id, todo.completed)}
-                    title="Mark as complete"
-                    className="complete-checkbox"
-                  />
-                    <div className="todo-actions">
-                      <button
-                        className="action-button update-button"
-                        type="button"
-                        onClick={() => updateTodo(todo._id)}
-                        title="Update Todo"
-                      >
-                        <Pencil size={17} />
-                      </button>
-                      <button
-                        className="action-button delete-button"
-                        type="button"
-                        onClick={() => deleteTodo(todo._id)}
-                        title="Delete Todo"
-                      >
-                        <Trash2 size={17} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
+        <TodoCard todoes={todoes} completeTodo={completeTodo} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
       </div>
     </div>
   );

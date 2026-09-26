@@ -17,6 +17,11 @@ const todoSchema=new mongoose.Schema({
         required:false
 },
  completed: { type: Boolean, default: false }, 
+ category: {
+    type: String,
+    enum: ["Work", "Personal", "Shopping", "Study"],
+    default: ""
+  }
 },{timestamps:true})    
 
 const Todo=mongoose.model("Todo",todoSchema)

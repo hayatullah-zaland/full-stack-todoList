@@ -61,3 +61,58 @@
 .theme-toggle:hover {
   transform: scale(1.08);
 }
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-button,
+.signup-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+/* Login */
+.login-button {
+  background: var(--toggle-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.login-button:hover {
+  background: var(--border-color);
+}
+
+/* Sign Up */
+.signup-button {
+  background: var(--accent);
+  color: white;
+}
+
+.signup-button:hover {
+  opacity: 0.88;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-button span,
+  .signup-button span {
+    display: none;
+  }
+
+  .login-button,
+  .signup-button {
+    padding: 9px;
+    border-radius: 8px;
+  }
+}

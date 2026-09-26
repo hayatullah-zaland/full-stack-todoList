@@ -14,7 +14,8 @@ router.get("/",async(req,res)=>{
 router.post("/",async(req,res)=>{
     const todo=new Todo({
         title:req.body.title,
-        description:req.body.description
+        description:req.body.description,
+        category:req.body.category
     })
     try{
         const newTodo=await todo.save()

@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Categories from "./components/Categories";
 import Settings from "./components/Settings";
 import AddTodoes from "./components/AddTodoes";
+import SignIn from "./pages/Signin";
+import Signup from "./pages/Signup";
 import "./App.css";
 import "./index.css";
 import Navbar from "./pages/Navbar";
@@ -19,6 +21,8 @@ const App = () => {
           <Route path="/todoes" element={<AddTodoes/>} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/settings" element={<Settings />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
     </div>
