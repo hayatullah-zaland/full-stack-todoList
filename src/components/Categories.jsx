@@ -12,7 +12,7 @@ const Categories = () => {
       <p className="sub">Organize your todos by category</p>
 
         <div>
-          <h2>{todoes.categories}</h2>
+          {/* <h1>{todoes.title}</h1> */}
         </div>
       </div>
   );

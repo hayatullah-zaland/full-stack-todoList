@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const Todo=require("../schemas")
+const {Todo}=require("../schemas")
+const {User}=require("../schemas")
 
 
 router.get("/",async(req,res)=>{
     const getPost=await Todo.find().sort({title:-1})
     res.send(getPost)
-    await getPost.save()
+    // await getPost.save()
 })
 
 
@@ -48,5 +49,22 @@ router.put("/:id", async (req, res) => {
       res.status(500).json({ message: err.message });
     }
 });
+
+router.post("/regester",async(req,res)=>{
+  console.log(req.body);
+  
+  const user=await new User({
+    name:req.body.name,
+    email:req.body.email,
+    password:req.body.password
+  })
+  try{
+    const newUser=await user.save()
+    res.status(201).json(newUser)
+  }catch(error){
+    res.status(400).json({error:error.message})
+  }
+  // res.send(req.body)
+})
 
 module.exports=router

@@ -1,7 +1,7 @@
-
 const mongoose=require("mongoose")
 const express=require("express")
 const dotenv=require("dotenv")
+const { required } = require("joi")
 dotenv.config()
 
 const app=express()
@@ -22,7 +22,23 @@ const todoSchema=new mongoose.Schema({
     enum: ["Work", "Personal", "Shopping", "Study"],
     default: ""
   }
-},{timestamps:true})    
+},{timestamps:true}) 
 
+const usersSchema=new mongoose.Schema({
+        name:{
+                type:String ,
+                required:["name is requird",true]
+        },
+        email:{
+        type:String,
+        required:["email is required",true]
+        },
+        password:{
+                type:String,
+                required:["password is required",true]
+        }
+})
+
+const User=mongoose.model("User",usersSchema)
 const Todo=mongoose.model("Todo",todoSchema)
-module.exports=Todo
+module.exports={Todo,User}

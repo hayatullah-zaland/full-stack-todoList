@@ -1,25 +1,32 @@
-const mongoose=require("mongoose")
-const dotenv=require("dotenv")
-const cors=require("cors")
-const todoRoutes=require("./model/todoRoutes")
 
-dotenv.config()
-const express=require("express")
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const express = require("express");
 
+const todoRoutes = require("./model/todoRoutes");
+const userRoutes = require("./model/userRoutes");
 
-const app=express()
+dotenv.config();
 
-app.use(express.json())
-app.use(cors())
+const app = express();
 
-mongoose.connect(process.env.MONGO_URI).then(()=>{
-    console.log("Connected to MongoDB")
-}).catch((err)=>{
-    console.log("Error connecting to MongoDB",err)
-})
+app.use(express.json());
+app.use(cors());
 
-app.use("/api/v1/todoes",todoRoutes)
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB", err);
+  });
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Server is running on port ${process.env.PORT}`)
-})
+app.use("/api/v1/todoes", todoRoutes);
+
+app.use("/api/v1/users", userRoutes);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
