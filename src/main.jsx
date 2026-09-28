@@ -5,12 +5,16 @@ import App from "./App";
 import "./index.css";
 import { TodoProvider } from "./context/TodoContexts";
 import { Toaster } from "react-hot-toast";
+// import { UserProvider } from "./context/UserContxt";
+import { UserProvider } from "./context/UserContxt";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+  <UserProvider>
     <TodoProvider>
-        <Toaster position="top-right" />
+      <Toaster position="top-right" />
       <App />
     </TodoProvider>
+  </UserProvider>
   </BrowserRouter>
 );

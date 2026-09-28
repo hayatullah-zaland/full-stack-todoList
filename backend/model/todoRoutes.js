@@ -8,7 +8,6 @@ const {User}=require("../schemas")
 router.get("/",async(req,res)=>{
     const getPost=await Todo.find().sort({title:-1})
     res.send(getPost)
-    // await getPost.save()
 })
 
 
@@ -64,7 +63,6 @@ router.post("/regester",async(req,res)=>{
   }catch(error){
     res.status(400).json({error:error.message})
   }
-  // res.send(req.body)
 })
 
 module.exports=router

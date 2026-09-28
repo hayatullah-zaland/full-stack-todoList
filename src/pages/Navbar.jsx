@@ -9,6 +9,8 @@ const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false)
   const { todoes } = useContext(TodoContext);
 
+  const completed=todoes.filter((todo)=>todo.completed)
+
   useEffect(() => {
     document.documentElement.setAttribute(
       'data-theme',
@@ -28,7 +30,7 @@ const Navbar = () => {
       <div className="navbar-right">
         <div className="navbar-stat">
           <CheckCircle2 size={18} />
-          <span>{todoes.length}</span>
+          <span>{completed.length}</span>
         </div>
 
         <button

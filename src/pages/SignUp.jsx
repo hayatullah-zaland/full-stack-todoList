@@ -1,16 +1,20 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import validator from "validator";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "./Signup.css";
+import { UserContext } from "../context/UserContxt";
 
 const Signup = () => {
+  const {user,setUsers}=useContext(UserContext)
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +38,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await axios.post(
+    const res = await axios.post(
   "http://localhost:3000/api/v1/users/register",
   {
     name,
@@ -43,13 +47,17 @@ const Signup = () => {
   }
 );
 
-      console.log(res.data);
-
+      
+      localStorage.setItem("token",res.data.token)
+      setUsers(res.data.user)
       setSuccess("User registered successfully!");
 
       setName("");
       setEmail("");
       setPassword("");
+
+      navigate('/')
+      
     } catch (error) {
       console.error("Signup failed:", error);
 
