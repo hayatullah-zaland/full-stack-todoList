@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link,useNavigate } from "react-router-dom";
 import "./Signup.css";
 import { UserContext } from "../context/UserContxt";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const {user,setUsers}=useContext(UserContext)
@@ -13,6 +14,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
   const navigate=useNavigate()
 
@@ -57,6 +59,7 @@ const Signup = () => {
       setPassword("");
 
       navigate('/')
+      toast.success("Account created Successfully")
       
     } catch (error) {
       console.error("Signup failed:", error);

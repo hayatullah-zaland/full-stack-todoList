@@ -5,34 +5,133 @@
   font-family: Arial, sans-serif;
 }
 
+
+/* =================================
+   Main App
+================================= */
+
 .app {
-  display: flex;
+  width: 100%;
   min-height: 100vh;
+
+  background: var(--toggle-bg);
+  color: var(--text-primary);
 }
+
+
+/* =================================
+   Protected Page
+================================= */
 
 .page {
-  margin-left: 220px;  /* sidebar */
-  margin-top: 60px;    /* navbar */
-  flex: 1;
+  width: calc(100% - 220px);
+
+  min-height: calc(100vh - 60px);
+
+  margin-left: 220px;
   padding: 30px;
+
+  margin-top: 60px;
+
   background: var(--toggle-bg);
+
+  transition:
+    margin-left 0.25s ease,
+    width 0.25s ease,
+    padding 0.25s ease;
+}
+
+
+/* =================================
+   Authentication Pages
+================================= */
+
+.auth-page {
+  width: 100%;
   min-height: 100vh;
+
+  background: var(--bg-navbar);
+
+  color: var(--text-primary);
 }
 
-/* Tablet */
+
+/* =================================
+   Tablet
+================================= */
+
 @media (max-width: 900px) {
+
   .page {
+    width: calc(100% - 70px);
+
     margin-left: 70px;
+
     margin-top: 60px;
+
+    padding: 25px;
   }
+
 }
 
-/* Mobile */
-@media (max-width: 600px) {
+
+/* =================================
+   Small Tablet
+================================= */
+
+@media (max-width: 768px) {
+
   .page {
-    margin-left: 0;
-    margin-top: 60px;
-    padding: 20px;
-    padding-bottom: 80px; /* د لاندې sidebar لپاره */
+    padding: 22px;
   }
+
+}
+
+
+/* =================================
+   Mobile
+================================= */
+
+@media (max-width: 600px) {
+
+  .page {
+    width: 100%;
+
+    margin-left: 0;
+
+    margin-top: 60px;
+
+    padding: 20px 15px;
+
+    padding-bottom: 90px;
+  }
+
+}
+
+
+/* =================================
+   Small Mobile
+================================= */
+
+@media (max-width: 400px) {
+
+  .page {
+    padding: 18px 12px;
+
+    padding-bottom: 90px;
+  }
+
+}
+
+
+/* =================================
+   Dark Mode
+================================= */
+
+[data-theme="dark"] .page {
+  background: var(--toggle-bg);
+}
+
+[data-theme="dark"] .auth-page {
+  background: var(--bg-navbar);
 }

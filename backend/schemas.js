@@ -27,12 +27,12 @@ const todoSchema=new mongoose.Schema({
 const usersSchema=new mongoose.Schema({
         name:{
                 type:String ,
-                required:["name is requird",true]
+                required:["name is requird ",true]
         },
         email:{
         type:String,
-        required:["email is required",true],
-        unique:["email should be unique",true]
+        required:[true,"email is required"],
+        unique:[true,"email should be unique"],
         },
         password:{
                 type:String,

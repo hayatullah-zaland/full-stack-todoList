@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   const token = localStorage.getItem("token");
 
   useEffect(()=>{
-    axios.get("http://localhost:3000/api/v1/users/getuser", {
+    axios.get("http://localhost:3000/api/v1/users/getuser/", {
   headers: {
     token: token,
   },

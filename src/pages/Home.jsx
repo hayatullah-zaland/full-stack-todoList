@@ -2,12 +2,23 @@ import { useContext } from "react";
 import "./Home.css";
 import { TodoContext } from "../context/TodoContexts";
 import { ClipboardList, CheckCircle, Clock } from "lucide-react";
+import { UserContext } from "../context/UserContxt";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { todoes } = useContext(TodoContext);
+  const navigate=useNavigate()
 
   const completed  = todoes.filter((todo) => todo.completed);
   const inProgress = todoes.filter((todo) => !todo.completed);
+
+  const {user}=useContext(UserContext)
+
+  if(!user){
+    navigate("/signup")
+  }
+
+  
 
   return (
     <div className="home">

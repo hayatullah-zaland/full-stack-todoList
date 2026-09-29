@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import { UserContext } from "../context/UserContxt";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const { setUsers } = useContext(UserContext);
@@ -63,6 +64,8 @@ const SignIn = () => {
       setPassword("");
 
       navigate("/");
+      toast.success("Login Successfully")
+
     } catch (error) {
       console.error("Signin failed:", error);
 

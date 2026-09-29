@@ -30,15 +30,6 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// router.get("/getuser",async(req,res)=>{
-//   const incodedToken=req.headers["token"]
-//   const decodeToken=jwt.verify(incodedToken,"thisismysecrate")
-//   // console.log(decodeToken);
-//   // res.send(decodeToken)
-//  const user=await User.findById(decodeToken._id)
-//   res.send(user)
-// })
-
 router.get("/getuser", async (req, res) => {
   try {
     const token = req.headers["token"];
@@ -73,5 +64,19 @@ router.get("/getuser", async (req, res) => {
   }
 });
 
+router.post("/login",async(req,res)=>{
+  User.findOne({email:req.body.email}).then((user)=>{
+    if(!user){
+      return res.status(404).json({message:"User not found"})
+    }
+    bcrypt.compare(req.body.password,user.password).then((isMatch)=>{
+      if(!isMatch){
+        return res.status(401).json({message:"Invalid credentials"})
+      }
+      const token=jwt.sign({_id:user._id},process.env.JWTSECRATE)
+      res.json({token,user})
+    })
+  })
+})
 
 module.exports = router;
